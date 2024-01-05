@@ -40,9 +40,7 @@ class CategoryController extends Controller
         return $category->load('subCategories');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(category $category)
     {
     }
