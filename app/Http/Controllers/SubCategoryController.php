@@ -43,17 +43,18 @@ class SubCategoryController extends Controller
     public function show($id): JsonResponse
     {
         $subCategory = SubCategory::find($id);
-
-        return response()->json([
-            'status' => 'success',
-            'data' => $subCategory,
-        ]);
+        if (!$subCategory) {
+            return response()->json([
+                'status' => 'No Data Found',
+                'code' => '404',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'success',
+                'data' => $subCategory,
+            ]);
+        }
     }
-
-
-
-
-
     /**
      * Update the specified resource in storage.
      */
