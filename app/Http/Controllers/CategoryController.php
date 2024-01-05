@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return category::all();
+        return Category::with('subCategories')->get();
     }
 
     /**
@@ -35,9 +35,9 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(category $category)
+    public function show(Category $category)
     {
-        return category::find($category);
+        return $category->load('subCategories');
     }
 
     /**
