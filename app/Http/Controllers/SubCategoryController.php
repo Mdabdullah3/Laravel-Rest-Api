@@ -40,13 +40,19 @@ class SubCategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SubCategory $subCategory): JsonResponse
+    public function show($id): JsonResponse
     {
+        $subCategory = SubCategory::find($id);
+
         return response()->json([
             'status' => 'success',
             'data' => $subCategory,
         ]);
     }
+
+
+
+
 
     /**
      * Update the specified resource in storage.
