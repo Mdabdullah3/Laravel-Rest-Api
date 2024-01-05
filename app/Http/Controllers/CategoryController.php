@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\category;
 use App\Http\Requests\StorecategoryRequest;
 use App\Http\Requests\UpdatecategoryRequest;
+use Illuminate\Http\Client\Request;
 
 class CategoryController extends Controller
 {
@@ -21,7 +22,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -45,22 +45,23 @@ class CategoryController extends Controller
      */
     public function edit(category $category)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatecategoryRequest $request, category $category)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->update($request->all());
+        return response()->json(['message' => 'Category updated successfully']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(category $category)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return response()->json(['message' => 'Category deleted successfully']);
     }
 }
