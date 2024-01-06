@@ -69,16 +69,10 @@ class SubCategoryController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SubCategory $subCategory): JsonResponse
-    {
-        $subCategory->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'SubCategory deleted successfully',
-        ]);
+    public function destroy(SubCategory $subcategory)
+    {
+        $subcategory->delete();
+        return response()->json('Successfully Deleted Sub Category', 204);
     }
 }

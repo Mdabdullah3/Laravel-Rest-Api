@@ -6,6 +6,7 @@ use App\Models\category;
 use App\Http\Requests\StorecategoryRequest;
 use App\Http\Requests\UpdatecategoryRequest;
 use Illuminate\Http\Client\Request;
+use Illuminate\Http\JsonResponse;
 
 class CategoryController extends Controller
 {
@@ -58,9 +59,12 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): JsonResponse
     {
         $category->delete();
-        return response()->json(['message' => 'Category deleted successfully']);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Category deleted successfully',
+        ]);
     }
 }
