@@ -54,8 +54,6 @@ class CategoryController extends Controller
         $category->update($request->validated());
         return response()->json(['message' => 'Category updated successfully', 'category' => $category]);
     }
-
-
     /**
      * Remove the specified resource from storage.
      */
