@@ -68,10 +68,14 @@ class SizeController extends Controller
     public function update(UpdatesizeRequest $request, size $size)
     {
         $size->update($request->validated());
+        $size->refresh();
         return response()->json([
-            'message' => 'Size updated successfully'
+            'message' => 'Size updated successfully',
+            'data' => $size
         ]);
     }
+
+
 
     /**
      * Remove the specified resource from storage.
