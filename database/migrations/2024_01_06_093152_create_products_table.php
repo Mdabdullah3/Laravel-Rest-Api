@@ -1,5 +1,5 @@
 <?php
-// Updated migration for products: 2024_01_06_093152_create_products_table.php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->decimal('discount', 8, 2)->nullable();
             $table->foreignId('size_id')->constrained('sizes')->onDelete('restrict');
             // Remove the following line
-            // $table->foreignId('picture_id')->constrained()->onDelete('cascade');
+            $table->foreignId('picture_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

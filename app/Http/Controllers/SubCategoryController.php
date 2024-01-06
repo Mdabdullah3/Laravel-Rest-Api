@@ -88,16 +88,6 @@ class SubCategoryController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
     public function destroy(SubCategory $subcategory)
     {
         $subcategory->delete();
