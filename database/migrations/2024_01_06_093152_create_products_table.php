@@ -20,7 +20,6 @@ class CreateProductsTable extends Migration
             $table->decimal('pprice', 8, 2);
             $table->decimal('discount', 8, 2)->nullable();
             $table->foreignId('size_id')->constrained('sizes')->onDelete('restrict');
-            // Remove the following line
             $table->foreignId('picture_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
