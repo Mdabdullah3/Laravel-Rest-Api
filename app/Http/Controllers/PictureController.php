@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\picture;
 use App\Http\Requests\StorepictureRequest;
 use App\Http\Requests\UpdatepictureRequest;
+use Illuminate\Http\JsonResponse;
 
 class PictureController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $picture = picture::all();
+        return response()->json([
+            'status' => 'success',
+            'data' => $picture
+        ]);
     }
 
     /**
@@ -27,9 +32,13 @@ class PictureController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorepictureRequest $request)
+    public function store(StorepictureRequest $request): JsonResponse
     {
-        //
+        $picture = picture::create($request->all());
+        return response()->json([
+            'status' => 'success',
+            'data' => $picture
+        ]);
     }
 
     /**
@@ -37,7 +46,11 @@ class PictureController extends Controller
      */
     public function show(picture $picture)
     {
-        //
+        $picture = picture::find($picture);
+        return response()->json([
+            'status' => 'success',
+            'data' => $picture
+        ]);
     }
 
     /**
@@ -53,7 +66,13 @@ class PictureController extends Controller
      */
     public function update(UpdatepictureRequest $request, picture $picture)
     {
-        //
+        $picture->update($request->validated());
+        $picture->refresh();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Picture updated successfully',
+            'data' => $picture
+        ]);
     }
 
     /**
@@ -61,6 +80,11 @@ class PictureController extends Controller
      */
     public function destroy(picture $picture)
     {
-        //
+        $picture->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Picture deleted successfully',
+            'data' => $picture
+        ]);
     }
 }

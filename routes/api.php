@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PictureController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
@@ -12,6 +13,7 @@ Route::apiResource('users', UserController::class);
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('subcategories', SubCategoryController::class);
 Route::apiResource('sizes', SizeController::class);
+Route::apiResource('picture', PictureController::class);
 
 
 // Not Found Route 
