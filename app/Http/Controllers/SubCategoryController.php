@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SubCategory;
 use App\Http\Requests\StoreSubCategoryRequest;
 use App\Http\Requests\UpdateSubCategoryRequest;
+use Illuminate\Http\Client\Request;
 use Illuminate\Http\JsonResponse;
 
 class SubCategoryController extends Controller
@@ -58,16 +59,15 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubCategoryRequest $request, SubCategory $subCategory): JsonResponse
+    public function update(Request $request, SubCategory $subCategory)
     {
-        $subCategory->update($request->all());
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'SubCategory updated successfully',
-            'data' => $subCategory,
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'category_id' => 'required',
         ]);
+        return  $subCategory->update($request->all());
     }
+
 
 
     public function destroy(SubCategory $subcategory)
