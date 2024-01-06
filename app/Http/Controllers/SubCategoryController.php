@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\SubCategory;
 use App\Http\Requests\StoreSubCategoryRequest;
 use App\Http\Requests\UpdateSubCategoryRequest;
-use Illuminate\Http\Client\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 
 class SubCategoryController extends Controller
 {
@@ -59,14 +59,42 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubCategory $subCategory)
+    public function update(UpdateSubCategoryRequest $request, $id): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'category_id' => 'required',
-        ]);
-        return  $subCategory->update($request->all());
+        $subCategory = SubCategory::with('category')->find($id);
+
+        if (!$subCategory) {
+            return response()->json([
+                'message' => 'SubCategory not found',
+            ], 404);
+        }
+
+        try {
+            $subCategory->update($request->validated());
+
+            // Reload the model to get the updated data along with the 'category' relationship
+            $subCategory->refresh();
+
+            return response()->json([
+                'message' => 'SubCategory updated successfully',
+                'subCategory' => $subCategory,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'SubCategory update failed',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
+
+
+
+
+
+
+
+
+
 
 
 
