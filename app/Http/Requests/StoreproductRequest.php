@@ -6,23 +6,27 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreproductRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'category_id' => 'required|exists:categories,id',
+            'subCategory_id' => 'required|exists:sub_categories,id',
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'quantity' => 'required|integer',
+            'sprice' => 'required|numeric',
+            'pprice' => 'required|numeric',
+            'discount' => 'nullable|numeric',
+            'size_id' => 'required|exists:sizes,id',
+            'user_id' => 'required|exists:users,id',
+            'images' => 'required|array',
+            'images.*.image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'images.*.filename' => 'required|string',
         ];
     }
 }

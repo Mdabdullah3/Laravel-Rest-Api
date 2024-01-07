@@ -10,7 +10,7 @@ class Picture extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['path'];
+    protected $fillable = ['product_id', 'path'];
 
     public function product(): BelongsTo
     {

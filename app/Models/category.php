@@ -17,6 +17,11 @@ class Category extends Model
         return $this->hasMany(SubCategory::class);
     }
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
     // Override the boot method to add a deleting event listener
     protected static function boot()
     {
