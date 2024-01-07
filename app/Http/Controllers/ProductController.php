@@ -17,15 +17,13 @@ class ProductController extends Controller
      */
     public function index(): JsonResponse
     {
-        $products = product::with(['category', 'subCategory', 'size', 'user', 'pictures'])->get();
+        $products = product::with(['category', 'subCategory', 'size', 'user', 'picture'])->get();
         return response()->json([
             'status' => 'Success',
             'code' => 200,
             'data' => $products
         ]);
     }
-
-
     /**
      * Show the form for creating a new resource.
      */
@@ -41,9 +39,7 @@ class ProductController extends Controller
     {
         $productData = $request->validated();
         $product = Product::create($productData);
-
         // Handle pictures upload if needed
-
         return response()->json(['message' => 'Product created successfully', 'data' => $product], 201);
     }
 
@@ -52,7 +48,11 @@ class ProductController extends Controller
      */
     public function show(product $product)
     {
-        return response()->json(['data' => $product]);
+        $product->load(['category', 'subCategory', 'size', 'user', 'picture']);
+        response()->json([
+            'status' => 'Success',
+            'data' => $product
+        ], 200);
     }
 
     /**
