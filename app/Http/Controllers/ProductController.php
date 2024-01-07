@@ -29,20 +29,15 @@ class ProductController extends Controller
     public function store(StoreproductRequest $request)
     {
         $productData = $request->validated();
-        // Create the product
         $product = Product::create($productData);
-        // Handle pictures upload
         $uploadedImages = $request->input('images');
-
         if ($uploadedImages) {
             foreach ($uploadedImages as $image) {
                 $base64Image = $image['image'];
                 $decodedImage = base64_decode($base64Image);
                 $fileName = time() . '_' . $image['filename'];
                 $filePath = 'uploads/' . $fileName;
-                // Save the image file
                 file_put_contents(public_path($filePath), $decodedImage);
-                // Create a new Picture instance
                 $picture = new Picture(['path' => $filePath]);
                 $product->pictures()->save($picture);
             }
